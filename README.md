@@ -82,7 +82,7 @@ curl http://localhost:8080/queries
 3. Execute a query
 ```bash
 curl "http://localhost:8080/execute?query=1"
-# -> [["1","0","3","Braund, Mr. Owen Harris","male","22","1","0","A/5 21171","7.25",null,"S"]...
+# -> [["1","0","3","Braund, Mr. Owen Harris","male","22","1","0","A/5 21171","7.25",null,"S"].......
 ```
 
 ## Limitations
