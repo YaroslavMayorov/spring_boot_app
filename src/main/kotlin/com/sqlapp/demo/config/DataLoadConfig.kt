@@ -18,21 +18,8 @@ class DataLoadConfig(
         jdbcTemplate.execute("DROP TABLE IF EXISTS passengers")
         jdbcTemplate.execute(
             """
-        CREATE TABLE IF NOT EXISTS passengers AS
-        SELECT
-          CAST(PassengerId AS INT) AS PASSENGERID,
-          CAST(Survived AS INT) AS SURVIVED,
-          CAST(Pclass AS INT) AS PCLASS,
-          Name,
-          Sex,
-          CAST(Age AS DOUBLE) AS AGE,
-          CAST(SibSp AS INT) AS SIBSP,
-          CAST(Parch AS INT) AS PARCH,
-          Ticket,
-          CAST(Fare AS DOUBLE) AS FARE,
-          Cabin,
-          Embarked
-        FROM CSVREAD('classpath:data/titanic.csv');
+        CREATE TABLE IF NOT EXISTS passengers AS 
+        SELECT * FROM CSVREAD('classpath:data/titanic.csv');
     """.trimIndent()
         )
         jdbcTemplate.execute(
