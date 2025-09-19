@@ -6,4 +6,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class QueryExecutor(private val jdbcTemplate: JdbcTemplate) {
+
+    fun execute(sql: String): List<Map<String, Any?>> {
+        require(QueryValidator.isReadOnlyQuery(sql)) { "Only SELECT/WITH/EXPLAIN are allowed" }
+        return jdbcTemplate.queryForList(sql)
+    }
 }
