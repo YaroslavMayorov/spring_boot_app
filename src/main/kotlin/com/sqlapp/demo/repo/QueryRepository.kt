@@ -1,15 +1,18 @@
 package com.sqlapp.demo.repo
 
 
+import org.slf4j.LoggerFactory
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert
 import org.springframework.stereotype.Repository
 import java.sql.PreparedStatement
 
+
 data class StoredQuery(val id: Long, val query: String)
 
 @Repository
 class QueryRepository(private val jdbcTemplate: JdbcTemplate) {
+    private val log = LoggerFactory.getLogger(javaClass)
 
     fun add(queryText: String): Long? = try {
         SimpleJdbcInsert(jdbcTemplate)
@@ -18,7 +21,7 @@ class QueryRepository(private val jdbcTemplate: JdbcTemplate) {
             .executeAndReturnKey(mapOf("query" to queryText))
             .toLong()
     } catch (ex: Exception) {
-        println("Error: ${ex.message}")
+        log.warn("Insert failed: {}", ex.message)
         null
     }
 
