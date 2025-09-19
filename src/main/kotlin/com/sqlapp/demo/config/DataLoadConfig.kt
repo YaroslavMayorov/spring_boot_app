@@ -15,11 +15,21 @@ class DataLoadConfig(
 
     @PostConstruct
     fun init() {
+        jdbcTemplate.execute("DROP TABLE IF EXISTS passengers")
         jdbcTemplate.execute(
             """
-    CREATE TABLE IF NOT EXISTS passengers AS 
-    SELECT * FROM CSVREAD('classpath:data/titanic.csv');
+        CREATE TABLE IF NOT EXISTS passengers AS 
+        SELECT * FROM CSVREAD('classpath:data/titanic.csv');
     """.trimIndent()
         )
+        jdbcTemplate.execute(
+            """
+            CREATE TABLE IF NOT EXISTS queries (
+                id IDENTITY PRIMARY KEY,
+                query VARCHAR NOT NULL
+            )
+            """.trimIndent()
+        )
+        log.info("Loaded Titanic into passengers; queries table ready.")
     }
 }
