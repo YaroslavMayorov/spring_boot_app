@@ -25,8 +25,8 @@ class DataLoadConfig(
         jdbcTemplate.execute(
             """
             CREATE TABLE IF NOT EXISTS queries (
-                id IDENTITY PRIMARY KEY,
-                query VARCHAR NOT NULL
+              id BIGSERIAL PRIMARY KEY,
+              query VARCHAR(10000) NOT NULL
             )
             """.trimIndent()
         )
