@@ -101,7 +101,6 @@ curl "http://localhost:8080/execute?query=1"
 - Only EXPLAIN SELECT statements are allowed.
 - No caching or optimization for repeated queries
 - No async job handling for long-running queries.
-- Exceptions are handled too generically, without detailed error classification and recovery strategies.
 
 
 ## Contacts 
