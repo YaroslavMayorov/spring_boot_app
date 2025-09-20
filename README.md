@@ -20,9 +20,8 @@ Simple Spring Boot service that stores SQL queries and executes them against an 
   - List stored queries (`GET /queries`)  
   - Execute query by ID (`GET /execute?query={id}`)  
 - **Safety:**
-  - Only `SELECT`, `WITH`, or `EXPLAIN` statements are allowed to execute to prevent data modifications
+  - Only `SELECT`, `WITH`, or `EXPLAIN` statements are allowed to prevent data modifications
   - Exactly one statement per request  
-  - Execution runs with a read-only connection
 
 ## Project Structure
 
