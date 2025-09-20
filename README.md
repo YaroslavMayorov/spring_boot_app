@@ -84,6 +84,16 @@ curl "http://localhost:8080/execute?query=1"
 # -> [[1,"Braund, Mr. Owen Harris",22.0],[2,"Cumings, Mrs. John Bradley (Florence Briggs Thayer)",38.0],[3,"Heikkinen, Miss. Laina",26.0],[4,"Futrelle, Mrs. Jacques Heath (Lily May Peel)",35.0],[5,"Allen, Mr. William Henry",35.0],[6,"Moran, Mr. James",null],[7,"McCarthy, Mr. Timothy J",54.0],[8,"Palsson, Master. Gosta Leonard",2.0],[9,"Johnson, Mrs. Oscar W (Elisabeth Vilhelmina Berg)",27.0],[10,"Nasser, Mrs. Nicholas (Adele Achem)",14.0]
 ```
 
+4. Try to add forbidden query
+```bash
+ curl -X POST "http://localhost:8080/queries" \
+  -H "Content-Type: text/plain" \
+  -d "INSERT INTO passengers (PassengerId, Survived, Pclass, Name, Sex, Age, SibSp, Parch, Ticket, Fare, Cabin, Embarked)
+      VALUES (9999, 0, 3, 'Test Passenger', 'male', 30, 0, 0, 'T12345', 99.99, NULL, 'S')"
+# -> {"error":"Only SELECT/WITH/EXPLAIN are allowed"}
+```
+
+
 ## Limitations
 
 - In-memory dataset (H2)
