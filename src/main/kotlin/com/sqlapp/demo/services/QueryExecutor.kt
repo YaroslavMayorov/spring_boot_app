@@ -14,7 +14,7 @@ class QueryExecutor(private val jdbcTemplate: JdbcTemplate) {
         log.debug("Received SQL: {}", sql)
 
         require(QueryValidator.isReadOnlyQuery(sql)) {
-            "Only SELECT/WITH/EXPLAIN are allowed"
+            "Only SELECT/WITH/EXPLAIN are allowed to execute"
         }
 
         log.info("Executing query...")

@@ -2,6 +2,7 @@ package com.sqlapp.demo.api
 
 import com.sqlapp.demo.repo.QueryRepository
 import com.sqlapp.demo.services.QueryExecutor
+import com.sqlapp.demo.util.QueryValidator
 import org.slf4j.LoggerFactory
 import org.springframework.dao.DataAccessException
 import org.springframework.http.MediaType
@@ -20,8 +21,14 @@ class QueryController(
 
     @PostMapping("/queries", consumes = [MediaType.TEXT_PLAIN_VALUE])
     fun add(@RequestBody body: String): ResponseEntity<Any> {
-        log.info("Adding new query: {}", body.trim())
-        val id = repo.add(body.trim())
+        val trimmed = body.trim()
+        if (!QueryValidator.isReadOnlyQuery(trimmed)) {
+            return ResponseEntity
+                .badRequest()
+                .body(mapOf("error" to "Only SELECT/WITH/EXPLAIN are allowed"))
+        }
+        log.info("Adding new query: {}", trimmed)
+        val id = repo.add(trimmed)
             ?: return ResponseEntity.internalServerError()
                 .body(mapOf("error" to "Could not save query"))
         log.info("Query saved with id={}", id)
